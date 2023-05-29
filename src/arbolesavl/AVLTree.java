@@ -75,16 +75,16 @@ class Nodo {
     }
 
     // Función para insertar un nodo en el árbol AVL
-    Nodo insertNodo(Nodo nodo, int key) {
+    Nodo insertNodo(Nodo nodo, int llave) {
         // Realizar la inserción en un BST normal
         if (nodo == null) {
-            return (new Nodo(key));
+            return (new Nodo(llave));
         }
 
-        if (key < nodo.raiz) {
-            nodo.izquierda = insertNodo(nodo.izquierda, key);
-        } else if (key > nodo.raiz) {
-            nodo.derecha = insertNodo(nodo.derecha, key);
+        if (llave < nodo.raiz) {
+            nodo.izquierda = insertNodo(nodo.izquierda, llave);
+        } else if (llave > nodo.raiz) {
+            nodo.derecha = insertNodo(nodo.derecha, llave);
         } else {
             return nodo; // No se permiten valores duplicados
         }
@@ -95,23 +95,23 @@ class Nodo {
         int balance = getBalance(nodo);
 
         // Caso de rotación izquierda-izquierda
-        if (balance > 1 && key < nodo.izquierda.raiz) {
+        if (balance > 1 && llave < nodo.izquierda.raiz) {
             return derechaRotacion(nodo);
         }
 
         // Caso de rotación derecha-derecha
-        if (balance < -1 && key > nodo.derecha.raiz) {
+        if (balance < -1 && llave > nodo.derecha.raiz) {
             return izquierdaRotacion(nodo);
         }
 
         // Caso de rotación izquierda-derecha
-        if (balance > 1 && key > nodo.izquierda.raiz) {
+        if (balance > 1 && llave > nodo.izquierda.raiz) {
             nodo.izquierda = izquierdaRotacion(nodo.izquierda);
             return derechaRotacion(nodo);
         }
 
         // Caso de rotación derecha-izquierda
-        if (balance < -1 && key < nodo.derecha.raiz) {
+        if (balance < -1 && llave < nodo.derecha.raiz) {
             nodo.derecha = derechaRotacion(nodo.derecha);
             return izquierdaRotacion(nodo);
         }
@@ -152,19 +152,19 @@ class Nodo {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Ingrese los nodos (ingrese -1 para detener la entrada):");
-        int nodeValue;
+        int nodevalor;
 
-        while ((nodeValue = scanner.nextInt()) != -1) {
-            tree.root = tree.insertNodo(tree.root, nodeValue);
+        while ((nodevalor = scanner.nextInt()) != -1) {
+            tree.root = tree.insertNodo(tree.root, nodevalor);
         }
 
-        System.out.println("Árbol AVL en orden:");
+        System.out.println("Arbol AVL en orden:");
         tree.inorderTraversal(tree.root);
 
-        System.out.println("\nÁrbol AVL en preorden:");
+        System.out.println("\nArbol AVL en preorden:");
         tree.preorderTraversal(tree.root);
 
-        System.out.println("\nÁrbol AVL en posorden:");
+        System.out.println("\nArbol AVL en posorden:");
         tree.postorderTraversal(tree.root);
     }
 }
